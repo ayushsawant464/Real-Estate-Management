@@ -66,22 +66,12 @@ const { errorHandler } = require('../utils/errorHandler.js');
   try {
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
-    let offer = req.query.offer;
-
-    if (offer === undefined || offer === 'false') {
-      offer = { $in: [false, true] };
-    }
-
-    let furnished = req.query.furnished;
-
-    if (furnished === undefined || furnished === 'false') {
-      furnished = { $in: [false, true] };
-    }
-
-    let parking = req.query.parking;
-
-    if (parking === undefined || parking === 'false') {
-      parking = { $in: [false, true] };
+   
+    let size = req.query.size;
+    let status = req.query.status;
+    let location =req.query.location || ' ';
+    if (status === undefined || status === 'false') {
+      status = { $in: ["sold", "unsold"] };
     }
 
     let type = req.query.type;
@@ -94,16 +84,16 @@ const { errorHandler } = require('../utils/errorHandler.js');
 
     const sort = req.query.sort || 'createdAt';
 
-    const order = req.query.order || 'desc';
+    const price = req.query.price || 'desc';
 
     const listing = await Property.find({
       name: { $regex: searchTerm, $options: 'i' },
-      offer,
-      furnished,
-      parking,
+      location,
       type,
+      size,
+      status
     })
-      .sort({ [sort]: order })
+      .sort({ [sort]: price })
       .limit(limit)
       .skip(startIndex);
 

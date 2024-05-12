@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.send("Hello from property routes");
 });
-router.post("/create", verifyToken, createProperty);
+router.post("/create",verifyToken, createProperty);
 router.delete("/delete/:id", verifyToken, deleteProperty);
 router.post("/update/:id", verifyToken, updateProperty);
 router.get("/get/:id", getProperty);
