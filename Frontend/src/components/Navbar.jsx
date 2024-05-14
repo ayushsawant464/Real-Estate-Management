@@ -1,7 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
+import {signOut,onAuthStateChanged} from 'firebase/auth'
+import { firebaseAuth } from '../utils/firebase-config';
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+  const navigate = useNavigate()
+
+  onAuthStateChanged(firebaseAuth,(currentUser)=>{
+
+      if(!currentUser){
+        
+         navigate('/')};
+    })
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -40,7 +51,10 @@ const Navbar = () => {
         </button>
         {isDropdownOpen && (
           <div className="absolute right-0 mt-2 w-48 bg-black text-white rounded-lg shadow-lg z-10">
-            <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>List Item 1</a>
+            <div onClick={()=>{signOut(firebaseAuth)}}>
+
+            <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>Logout</a>
+            </div>
             <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>List Item 2</a>
             <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>List Item 3</a>
           </div>

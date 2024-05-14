@@ -2,6 +2,8 @@ import React from 'react'
 import RealEstateCard from '../components/RealEstateCard'
 import House1 from "../assets/House1.jpg"
 import House2 from "../assets/House2.jpg"
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 const data = [
     {
         image: House1,
@@ -50,6 +52,7 @@ const data = [
 const BuyPage = () => {
   return (
     <>
+    <Navbar/>
         <div className='flex flex-wrap justify-evenly w-full my-16 mx-auto px-36'>
             {
                 data.map((realEstate, index) => (
@@ -57,6 +60,7 @@ const BuyPage = () => {
                 ))
             }
         </div>
+    <Footer/>
     </>
   )
 }

@@ -1,14 +1,17 @@
-import BuyPage from './pages/BuyPage'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-function App() {
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from './pages/Login'
+import Home from './pages/BuyPage'
 
+
+const App = () => {
   return (
-    <>
-      <Navbar />
-      <BuyPage />
-      <Footer />
-    </>
+    <BrowserRouter>
+    <Routes>
+    <Route exact path='/' element={<Login/>}/>
+    <Route exact path='/home' element={<Home/>}/>
+    </Routes>
+    </BrowserRouter>
   )
 }
 
