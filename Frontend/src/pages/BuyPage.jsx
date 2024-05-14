@@ -5,7 +5,7 @@ import House2 from "../assets/House2.jpg"
 const data = [
     {
         image: House1,
-        title: "Ghar ahe maja lavdaya",
+        title: "Ghar",
         location: "Mumbai",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
         price: "200"
