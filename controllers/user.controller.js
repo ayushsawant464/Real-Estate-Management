@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model.js");
-const errorHandler = require("../utils/errorHandler.js");
+const errorHandler = require("../utils/error.js");
 const Property = require("../models/property.model.js");
 
 

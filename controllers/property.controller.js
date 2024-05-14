@@ -1,12 +1,14 @@
 
 const Property = require('../models/property.model.js');
-const { errorHandler } = require('../utils/errorHandler.js');
- const createProperty = async (req, res, next) => {
+const { errorHandler } = require('../utils/error.js');
+ 
+
+const createProperty = async (req, res, next) => {
   try {
     const property = await Property.create(req.body);
     return res.status(201).json(property);
   } catch (error) {
-    next(error);
+    console.log(error);
   }
 };
 
@@ -67,19 +69,26 @@ const { errorHandler } = require('../utils/errorHandler.js');
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
    
-    let size = req.query.size;
+    let size = req.query.size ;
     let status = req.query.status;
-    let location =req.query.location || ' ';
-    if (status === undefined || status === 'false') {
+    let location =req.query.location;
+    if (status === undefined ) {
       status = { $in: ["sold", "unsold"] };
     }
 
     let type = req.query.type;
 
+    if(size===undefined ){
+      size =  { $gt: 0 };
+    }
+
     if (type === undefined || type === 'all') {
       type = { $in: ['sale', 'rent'] };
     }
 
+    if(location === undefined)[
+      location = { $regex: '/./', $options: 'i'}
+    ]
     const searchTerm = req.query.searchTerm || '';
 
     const sort = req.query.sort || 'createdAt';
