@@ -106,7 +106,7 @@ const BuyPage = () => {
 
   return (
     <>  
-    <Navbar/>
+    
       <div className='w-full flex flex-col items-center'>
         <div className='text-3xl text-white'>Buy Properties</div>
         <div className='w-full max-w-2xl my-4'>
@@ -132,7 +132,7 @@ const BuyPage = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+     
     </>
   );
 };
