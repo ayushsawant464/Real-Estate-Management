@@ -14,7 +14,7 @@ const Navbar = () => {
 
       if(!currentUser){
         
-         navigate('/')};
+         navigate('/login')};
     })
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -79,7 +79,7 @@ const Navbar = () => {
 
             <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>Logout</a>
             </div>
-            <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>List Item 2</a>
+            <Link to="/profile" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>Profile</Link>
             <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>List Item 3</a>
           </div>
         )}

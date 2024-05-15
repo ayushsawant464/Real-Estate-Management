@@ -88,7 +88,6 @@ const BuyPage = () => {
 
   return (
     <>  
-    <Navbar/>
       <div className='w-full flex'>
         <div className='w-[30%] my-16'>
           <Filters categories={categories} onFilterChange={handleFilterChange} />
