@@ -4,6 +4,7 @@ import {firebaseAuth} from "../utils/firebase-config"
 import {useNavigate} from 'react-router-dom'
 import { MdOutlineEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
   const[form,setform] = useState({
@@ -17,7 +18,10 @@ const LoginForm = () => {
     
     try {
       const{email,password} = form
-      await signInWithEmailAndPassword(firebaseAuth,email,password)
+      const userCredential= await signInWithEmailAndPassword(firebaseAuth,email,password)
+      const token = await userCredential.user.getIdToken();
+      Cookies.set('jwtToken', token, { expires: 7, secure: true, sameSite: 'strict' });
+      console.log(token)
     } catch (error) {
       console.log(error)
     }

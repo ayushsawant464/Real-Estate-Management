@@ -1,11 +1,10 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import RealEstateCard from '../components/RealEstateCard'
 import House1 from "../assets/House1.jpg"
 import House2 from "../assets/House2.jpg"
 import Filters from '../components/Filters';
 import { FaSearch } from 'react-icons/fa';
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import axiosInstance from '../utils/axiosInstance'
 const data = [
   {
     image: House1,
@@ -76,6 +75,17 @@ const categories = {
 };
 
 const BuyPage = () => {
+  async function fetchTodos() {
+    try {
+      const response = await axiosInstance.get('/user/test');
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  }
+  useEffect(()=>{
+    fetchTodos()
+  },[])
   const [filteredCategories, setFilteredCategories] = useState({
     type: [],
     size: [],

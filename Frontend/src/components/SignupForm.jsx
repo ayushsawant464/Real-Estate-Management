@@ -4,7 +4,7 @@ import {firebaseAuth} from "../utils/firebase-config"
 import {useNavigate} from 'react-router-dom'
 import { MdOutlineEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
-import { AuthErrorCodes } from 'firebase/auth';
+import Cookies from 'js-cookie'
 
 const SignupForm = () => {
   const[form,setform] = useState({
@@ -18,7 +18,9 @@ const SignupForm = () => {
     
     try {
       const{email,password} = form
-      await createUserWithEmailAndPassword(firebaseAuth,email,password)
+      const userCredential = await createUserWithEmailAndPassword(firebaseAuth,email,password)
+      const token = userCredential.user.getIdToken();
+      Cookies.set('jwtToken', token, { expires: 7, secure: true, sameSite: 'strict' });
     } catch (error) {
       console.log(error.code)
       seterror(error.code)
@@ -34,27 +36,6 @@ const SignupForm = () => {
   })
 
   return (
-    // <div>
-    // <div className='flex flex-col my-8 gap-8'>
-
-    //   <div className='border-White border-2 rounded-full px-6 py-3 flex items-center'>
-
-    //   <input className='text-slate-300 bg-transparent  focus:outline-none ' 
-    //   type="email" placeholder='Email ID' name="email" id="email" value={form.email} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
-    //   <MdOutlineEmail className='text-xl' />
-    //   </div>
-
-    //   <div className='border-White border-2 rounded-full px-6 py-3 flex items-center'>
-
-    //   <input className='text-slate-300 bg-transparent  focus:outline-none ' 
-    //   type="password" placeholder='Password' name="password" id="password" value={form.password} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
-    //   <CiLock className='text-2xl'/>
-    //   </div>
-    //   <button onClick={handleSubmit} className='bg-White text-black rounded-full p-2 hover:bg-slate-300'>Signup</button>
-    // </div>
-
-    
-    // </div>
     <div>
     <div className='flex flex-col my-8 gap-8'>
 
