@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropertyList from '../components/PropertyList';
 import axiosInstance from '../utils/axiosInstance';
 
 const SellPage = () => {
   const [formVisible, setFormVisible] = useState(false);
   const [isRent,setisRent]=useState(false)
+  const [refresh,setRefresh]= useState(false)
   const [newProperty, setNewProperty] = useState({
     name:"",
     imageUrl: "",
@@ -25,6 +26,8 @@ const SellPage = () => {
     });
   };
 
+  useEffect(()=>{},[refresh])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +35,6 @@ const SellPage = () => {
       const propertyData = { ...newProperty, isRent }; 
       const response = await axiosInstance.post('/property/create', propertyData);
       console.log(response.data);
-      setProperties([...properties, response.data]);
       setNewProperty({
         name:"",
         imageUrl: "",
@@ -45,6 +47,7 @@ const SellPage = () => {
         size: ""
       });
       setFormVisible(false);
+      setRefresh(true);
     } catch (error) {
       console.error('Error adding property:', error);
     }

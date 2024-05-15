@@ -19,7 +19,7 @@ const SignupForm = () => {
     try {
       const{email,password} = form
       const userCredential = await createUserWithEmailAndPassword(firebaseAuth,email,password)
-      const token = userCredential.user.getIdToken();
+      const token = await userCredential.user.getIdToken();
       Cookies.set('jwtToken', token, { expires: 7, secure: true, sameSite: 'strict' });
     } catch (error) {
       console.log(error.code)
