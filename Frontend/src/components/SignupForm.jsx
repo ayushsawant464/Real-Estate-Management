@@ -2,6 +2,9 @@ import React ,{useState} from 'react'
 import {createUserWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth'
 import {firebaseAuth} from "../utils/firebase-config"
 import {useNavigate} from 'react-router-dom'
+import { MdOutlineEmail } from "react-icons/md";
+import { CiLock } from "react-icons/ci";
+import { AuthErrorCodes } from 'firebase/auth';
 
 const SignupForm = () => {
   const[form,setform] = useState({
@@ -17,7 +20,8 @@ const SignupForm = () => {
       const{email,password} = form
       await createUserWithEmailAndPassword(firebaseAuth,email,password)
     } catch (error) {
-      console.log(error)
+      console.log(error.code)
+      seterror(error.code)
     }
 
   };
@@ -31,16 +35,24 @@ const SignupForm = () => {
 
   return (
     <div>
-    <div className='flex flex-col my-8'>
-      <label htmlFor="email">Email</label>
-      <input className='text-slate-300 bg-transparent pb-2 border-b-2 border-b-red-600 mt-3 mb-5 focus:outline-none' 
-      type="email" name="email" id="email" value={form.email} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
-      <label htmlFor="password">Password</label>
-      <input className='text-slate-300 bg-transparent pb-2 border-b-2 border-b-red-600 mt-3 mb-5 focus:outline-none' 
-      type="password" name="password" id="password" value={form.password} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
-      <button onClick={handleSubmit} className='bg-red-600 rounded my-2 p-2 hover:bg-red-500'>Sign Up</button>
+    <div className='flex flex-col my-8 gap-8'>
+
+      <div className='border-White border-2 rounded-full px-6 py-3 flex items-center'>
+
+      <input className='text-slate-300 bg-transparent  focus:outline-none ' 
+      type="email" placeholder='Email ID' name="email" id="email" value={form.email} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
+      <MdOutlineEmail className='text-xl' />
+      </div>
+
+      <div className='border-White border-2 rounded-full px-6 py-3 flex items-center'>
+
+      <input className='text-slate-300 bg-transparent  focus:outline-none ' 
+      type="password" placeholder='Password' name="password" id="password" value={form.password} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
+      <CiLock className='text-2xl'/>
+      </div>
+      <button onClick={handleSubmit} className='bg-White text-black rounded-full p-2 hover:bg-slate-300'>Signup</button>
     </div>
-      {error && error}
+
     
     </div>
   )
