@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RealEstateCard from '../components/RealEstateCard'
 import House1 from "../assets/House1.jpg"
 import House2 from "../assets/House2.jpg"
@@ -106,7 +106,7 @@ const BuyPage = () => {
 
   return (
     <>  
-    <Navbar/>
+    
       <div className='w-full flex flex-col items-center'>
         <div className='w-full max-w-2xl my-4'>
           <div className="relative">
@@ -131,7 +131,7 @@ const BuyPage = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+     
     </>
   );
 };

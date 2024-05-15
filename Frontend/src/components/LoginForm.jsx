@@ -35,20 +35,20 @@ const LoginForm = () => {
     <div>
     <div className='flex flex-col my-8 gap-8'>
 
-      <div className='border-White border-2 rounded-full px-6 py-3 flex items-center'>
+      <div className='border-white border-2 rounded-full px-6 py-3 flex items-center'>
 
-      <input className='text-slate-300 bg-transparent  focus:outline-none ' 
-      type="email" placeholder='Email ID' name="email" id="email" value={form.email} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
-      <MdOutlineEmail className='text-xl' />
+        <MdOutlineEmail className='text-xl mr-4 text-Red' />
+        <input className='text-slate-300 bg-transparent  focus:outline-none ' 
+        type="email" placeholder='Email ID' name="email" id="email" value={form.email} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
       </div>
 
-      <div className='border-White border-2 rounded-full px-6 py-3 flex items-center'>
+      <div className='border-white border-2 rounded-full px-6 py-3 flex items-center'>
 
-      <input className='text-slate-300 bg-transparent  focus:outline-none ' 
-      type="password" placeholder='Password' name="password" id="password" value={form.password} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
-      <CiLock className='text-2xl'/>
+        <CiLock className='mr-4 text-Red text-2xl'/>
+        <input className='text-slate-300 bg-transparent  focus:outline-none ' 
+        type="password" placeholder='Password' name="password" id="password" value={form.password} onChange={(e)=>{setform({...form, [e.target.name]:e.target.value})}}/>
       </div>
-      <button onClick={handleSubmit} className='bg-White text-black rounded-full p-2 hover:bg-slate-300'>Login</button>
+      <button onClick={handleSubmit} className='bg-Black text-White rounded-full p-2 hover:bg-black font-bold transition-colors duration-200'>Login</button>
     </div>
 
     

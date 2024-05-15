@@ -10,9 +10,8 @@ const data = [
     title: "Ghar",
     location: "Mumbai",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "200",
+    price: "200/Month",
     type: "House",
-    status: "Available",
     size: '1RK'
   },
   {
@@ -20,9 +19,8 @@ const data = [
     title: "Ghat",
     location: "Mumbai",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
+    price: "300/Month",
     type: "Villa",
-    status: "Available",
     size: '1RK'
   },
   {
@@ -30,9 +28,8 @@ const data = [
     title: "Ghat",
     location: "Mumbai",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
+    price: "300/Month",
     type: "Condo",
-    status: "Available",
     size: '1BHK'
   },
   {
@@ -40,9 +37,8 @@ const data = [
     title: "Ghat",
     location: "Mumbai",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
+    price: "300/Month",
     type: "Condo",
-    status: "Sold Out",
     size: '1BHK'
   },
   {
@@ -50,9 +46,8 @@ const data = [
     title: "Ghat",
     location: "Mumbai",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
+    price: "300/Month",
     type: "Condo",
-    status: "Sold Out",
     size: '2BHK'
   },
   {
@@ -60,9 +55,8 @@ const data = [
     title: "Ghat",
     location: "Mumbai",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
+    price: "300/Month",
     type: "Condo",
-    status: "Sold Out",
     size: '2BHK'
   }
 ];
@@ -70,7 +64,6 @@ const data = [
 const categories = {
   type: ['Apartment', 'Villa', 'House', 'Condo'],
   size: ['1RK', '1BHK', '2BHK', '3BHK', '4BHK'],
-  status: ['Sold Out', 'Available'],
 };
 
 const BuyPage = () => {
