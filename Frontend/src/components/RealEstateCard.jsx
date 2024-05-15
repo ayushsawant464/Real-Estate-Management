@@ -8,7 +8,7 @@ const RealEstateCard = ({ realEstate }) => {
       <div className="p-6">
         <div className="w-auto h-64 rounded-lg overflow-hidden border-2 border-Red relative cursor-pointer">
           <img
-            src={realEstate.image}
+            src={realEstate.imageUrl}
             alt={realEstate.title}
             className="w-full h-full object-cover absolute inset-0"
           />
@@ -28,7 +28,7 @@ const RealEstateCard = ({ realEstate }) => {
         <div className="flex justify-between items-center mt-2">
           <p className="text-xl font-semibold text-white">Price: <span className="text-Red">${realEstate.price}</span></p>
           <button className="bg-Red text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105"
-          onClick={()=>{navigate(`/property/raju`)}}>
+          onClick={()=>{navigate(`/property/${realEstate._id}`)}}>
             View Details
           </button>
         </div>

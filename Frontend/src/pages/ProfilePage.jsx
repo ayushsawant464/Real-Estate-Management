@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RealEstateCard from '../components/RealEstateCard';
 import { FaEdit } from 'react-icons/fa'; // Importing edit icon from react-icons
 import House1 from '../assets/House1.jpg'; // Placeholder image for user profile
+import PropertyList from '../components/PropertyList';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -112,11 +113,7 @@ const ProfilePage = () => {
 
         <div className="p-4">
           <h2 className="text-2xl font-bold mb-4">Listed Properties</h2>
-          <div className="flex flex-wrap">
-            {user.properties.map((property, index) => (
-              <RealEstateCard key={index} realEstate={property} />
-            ))}
-          </div>
+          <PropertyList/>
         </div>
       </div>
     </div>

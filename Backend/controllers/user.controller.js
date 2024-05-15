@@ -54,17 +54,36 @@ const createUser = async (req, res, next) => {
 };
 
  const getUserListings = async (req, res, next) => {
-  if (req.user.id === req.params.id) {
+
     try {
-      const listings = await Property.find({ userRef: req.params.id });
+      const listings = await Property.find({ user_id: req.user_id });
       res.status(200).json(listings);
     } catch (error) {
       next(error);
+      res.status(400).json({error:error.message})
     }
-  } else {
-    return next(errorHandler(401, "You can only view your own listings!"));
+  
+};
+
+const getPropertiesS = async (req, res, next) => {
+  try {
+    const properties = await Property.find({ isRent: false });
+    res.status(200).json(properties);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({error:error.message})
   }
 };
+const getPropertiesR = async (req, res, next) => {
+  try {
+    const properties = await Property.find({ isRent: true});
+    res.status(200).json(properties);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({error:error.message})
+  }
+};
+
 
  const getUser = async (req, res, next) => {
   try {
@@ -80,5 +99,5 @@ const createUser = async (req, res, next) => {
   }
 };
 
-module.exports = { test, updateUser, deleteUser, getUserListings, getUser,createUser };
+module.exports = { test, updateUser, deleteUser, getUserListings, getUser,createUser, getPropertiesR,getPropertiesS };
 

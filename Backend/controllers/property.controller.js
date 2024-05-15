@@ -5,10 +5,12 @@ const { errorHandler } = require('../utils/error.js');
 
 const createProperty = async (req, res, next) => {
   try {
-    const property = await Property.create(req.body);
+    const user_id = req.user_id;
+    const property = await Property.create({...req.body,user_id});
     return res.status(201).json(property);
   } catch (error) {
     console.log(error);
+    res.status(400).json({error:error.message})
   }
 };
 
@@ -111,5 +113,6 @@ const createProperty = async (req, res, next) => {
     next(error);
   }
 };
+
 
 module.exports = { createProperty, deleteProperty, updateProperty, getProperty, getProperties };

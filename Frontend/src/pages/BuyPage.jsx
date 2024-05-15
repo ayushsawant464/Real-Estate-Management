@@ -5,68 +5,7 @@ import House2 from "../assets/House2.jpg"
 import Filters from '../components/Filters';
 import { FaSearch } from 'react-icons/fa';
 import axiosInstance from '../utils/axiosInstance'
-const data = [
-  {
-    image: House1,
-    title: "Ghar",
-    location: "Mumbai",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "200",
-    type: "House",
-    status: "Available",
-    size: '1RK'
-  },
-  {
-    image: House2,
-    title: "Ghat",
-    location: "Mumbai",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
-    type: "Villa",
-    status: "Available",
-    size: '1RK'
-  },
-  {
-    image: House2,
-    title: "Ghat",
-    location: "Mumbai",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
-    type: "Condo",
-    status: "Available",
-    size: '1BHK'
-  },
-  {
-    image: House2,
-    title: "Ghat",
-    location: "Mumbai",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
-    type: "Condo",
-    status: "Sold Out",
-    size: '1BHK'
-  },
-  {
-    image: House2,
-    title: "Ghat",
-    location: "Mumbai",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
-    type: "Condo",
-    status: "Sold Out",
-    size: '2BHK'
-  },
-  {
-    image: House2,
-    title: "Ghat",
-    location: "Mumbai",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloribus quo deleniti fugit magnam provident odit explicabo nobis soluta hic, saepe voluptatibus facere enim, minima, corporis id blanditiis neque! Possimus.",
-    price: "300",
-    type: "Condo",
-    status: "Sold Out",
-    size: '2BHK'
-  }
-];
+
 
 const categories = {
   type: ['Apartment', 'Villa', 'House', 'Condo'],
@@ -75,16 +14,18 @@ const categories = {
 };
 
 const BuyPage = () => {
-  async function fetchTodos() {
+  const [data,setData]=useState(null)
+  async function fetchData() {
     try {
-      const response = await axiosInstance.get('/user/test');
+      const response = await axiosInstance.get('/user/buy');
       console.log(response.data);
+      setData(response.data)
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
   }
   useEffect(()=>{
-    fetchTodos()
+    fetchData()
   },[])
   const [filteredCategories, setFilteredCategories] = useState({
     type: [],
@@ -101,18 +42,21 @@ const BuyPage = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredProperties = data.filter((property) => {
+  const filteredProperties = data?.filter((property) => {
     const matchesCategory = 
       (filteredCategories.type.length === 0 || filteredCategories.type.includes(property.type)) &&
       (filteredCategories.size.length === 0 || filteredCategories.size.includes(property.size)) &&
       (filteredCategories.status.length === 0 || filteredCategories.status.includes(property.status));
-
+  
     const matchesSearch = 
-      property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.description.toLowerCase().includes(searchQuery.toLowerCase());
-
+      property &&
+      ((property.title?.toLowerCase().includes(searchQuery.toLowerCase()) ??[]) ||
+      property.description.toLowerCase().includes(searchQuery.toLowerCase()));
+  
     return matchesCategory && matchesSearch;
-  });
+  }) ?? [];
+  
+  
 
   return (
     <>  

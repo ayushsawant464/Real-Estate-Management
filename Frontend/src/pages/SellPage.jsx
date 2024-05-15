@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import RealEstateCard from '../components/RealEstateCard';
-import HousePlaceholder from '../assets/House1.jpg'; // Placeholder image for newly added properties
-import Navbar from '../components/Navbar';
+import PropertyList from '../components/PropertyList';
+import axiosInstance from '../utils/axiosInstance';
 
 const SellPage = () => {
-  const [properties, setProperties] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
   const [isRent,setisRent]=useState(false)
   const [newProperty, setNewProperty] = useState({
-    image: HousePlaceholder,
+    name:"",
+    imageUrl: "",
     title: "",
     location: "",
     description: "",
@@ -26,35 +25,31 @@ const SellPage = () => {
     });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setNewProperty({
-          ...newProperty,
-          image: reader.result
-        });
-      };
-      reader.readAsDataURL(file);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const propertyData = { ...newProperty, isRent }; 
+      const response = await axiosInstance.post('/property/create', propertyData);
+      console.log(response.data);
+      setProperties([...properties, response.data]);
+      setNewProperty({
+        name:"",
+        imageUrl: "",
+        title: "",
+        location: "",
+        description: "",
+        price: "",
+        type: "",
+        status: "Available",
+        size: ""
+      });
+      setFormVisible(false);
+    } catch (error) {
+      console.error('Error adding property:', error);
     }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setProperties([...properties, newProperty]);
-    setNewProperty({
-      image: HousePlaceholder,
-      title: "",
-      location: "",
-      description: "",
-      price: "",
-      type: "",
-      status: "Available",
-      size: ""
-    });
-    setFormVisible(false);
-  };
+  
 
   return (
     <>
@@ -70,9 +65,9 @@ const SellPage = () => {
 
       {formVisible && (
         <form onSubmit={handleSubmit} className="mb-8 bg-gradient-to-l from-black to-black p-4 shadow rounded">
-          <div className='flex text-white font-bold'>
-            <div  onClick={()=>{setisRent(false)}}>Sell</div>
-            <div onClick={()=>{setisRent(true)}}>Rent</div>
+          <div className='flex gap-6 text-2xl text-white font-bold mb-8'>
+            <div className={`${!isRent?"border-t-4 border-t-red-600 ":"border-t-4 border-transparent hover:text-slate-300 "}`}  onClick={()=>{setisRent(false)}}>Sell</div>
+            <div className={`${isRent?"border-t-4 border-t-red-600 ":"border-t-4 border-transparent hover:text-slate-300"}`} onClick={()=>{setisRent(true)}}>Rent</div>
           </div>
           <div className="mb-4">
             <label className="block mb-2 text-white font-bold">Title</label>
@@ -153,10 +148,10 @@ const SellPage = () => {
           <div className="mb-4">
             <label className="block mb-2 text-white font-bold">Image</label>
             <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleImageChange}
+              type="text"
+              name="imageUrl"
+              value={newProperty.imageUrl}
+              onChange={handleInputChange}
               className="w-full p-2 border-2 rounded border-red-600"
             />
           </div>
@@ -165,13 +160,9 @@ const SellPage = () => {
           </button>
         </form>
       )}
+            <h2 className="text-2xl text-white font-bold mb-4">Listed Properties</h2>
 
-      <h2 className="text-xl font-bold mb-4 text-white">Listed Properties</h2>
-      <div className="flex flex-wrap justify-evenly">
-        {properties.map((property, index) => (
-          <RealEstateCard key={index} realEstate={property} />
-        ))}
-      </div>
+        <PropertyList/>
     </div>
     </>
   );

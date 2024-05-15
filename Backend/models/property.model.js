@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const propertySchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true
     },
@@ -22,21 +22,25 @@ const propertySchema = new mongoose.Schema({
         required: true
     },
     size: {
-        type: Number,
+        type: String,
         required: true
     },
     status: {
         type: String,
         required: true
     },
-    imageUrls: {
-        type: Array,
-        required: true,
-      },
-      userRef: {
+    imageUrl: {
         type: String,
         required: true,
       },
+    user_id: {
+        type: String,
+        required: true,
+      },
+    isRent :{
+        type:Boolean,
+        required :true,
+    },
 },
 { timestamps: true });
 
