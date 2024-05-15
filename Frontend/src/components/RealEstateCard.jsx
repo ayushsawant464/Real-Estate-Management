@@ -16,9 +16,10 @@ const RealEstateCard = ({ realEstate }) => (
           </div>
         </div>
         <div className="mt-6">
-          <p className="text-gray-400">{realEstate.description}</p>
+            {realEstate.description.length > 100 ? <p className="text-gray-400">{realEstate.description.slice(0, 101) + '...'}</p> : <p className="text-gray-400">{realEstate.description}</p>}
         </div>
-        <div className="mt-6 flex justify-between items-center">
+        <p className={`mt-4 text-lg font-semibold text-${realEstate.status === 'Available' ? 'green' : 'red'}-600`}>{realEstate.status}</p>
+        <div className="flex justify-between items-center">
           <p className="text-xl font-semibold text-white">Price: <span className="text-Red">${realEstate.price}</span></p>
           <button className="bg-Red text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
             View Details
