@@ -22,7 +22,7 @@ const verifyToken = (req, res, next) => {
   admin.auth().verifyIdToken(token)
     .then(decodedToken => {
       // Token is valid, attach user information to the request object
-      req.user = decodedToken;
+      req.user_id = decodedToken.user_id;
       next();
     })
     .catch(error => {
