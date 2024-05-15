@@ -24,7 +24,11 @@
 
 **Backend:** Node, Express
 
+<<<<<<< HEAD
+**Database:** MongoDB
+=======
 **Database:** MongoDB,Firebase
+>>>>>>> a9c53f6c622eaf54a2a31b1bcac019e531c3dbab
 
 
 ## Environment Variables
