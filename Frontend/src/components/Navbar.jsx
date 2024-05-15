@@ -38,7 +38,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="text-white p-4 flex justify-between items-center mx-4">
+    <nav className="text-white p-4 flex justify-between items-center mx-4 mt-4">
       <div className="text-2xl font-bold">
              Home
       </div>
