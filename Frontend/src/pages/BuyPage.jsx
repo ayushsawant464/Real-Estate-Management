@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import RealEstateCard from '../components/RealEstateCard'
 import House1 from "../assets/House1.jpg"
 import House2 from "../assets/House2.jpg"
