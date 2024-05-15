@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
-import {signOut,onAuthStateChanged} from 'firebase/auth'
+import {signOut,onAuthStateChanged, signInWithEmailLink} from 'firebase/auth'
 import { firebaseAuth } from '../utils/firebase-config';
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const location = useLocation();
+  const activeLink= location.pathname
+
 
   onAuthStateChanged(firebaseAuth,(currentUser)=>{
 
@@ -31,6 +34,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -39,14 +43,34 @@ const Navbar = () => {
 
   return (
     <nav className="text-white p-4 flex justify-between items-center mx-4 mt-4">
+      <div className='flex items-center justify-center'>
+
       <div className="text-2xl font-bold">
-             Home
+          Home
       </div>
+      <div className="flex ml-6">
+      <Link exact to="/buy" className={`mx-4 text-white hover:text-gray-300`}
+            >
+                        Buy
+                    </Link>
+                    <Link to="/rent" className={`mx-4   text-white hover:text-gray-300`}
+                    >
+                        Rent
+                    </Link>
+                    </div>
+                      </div>
+                      <div className='flex gap-8  items-center'>
+                        <div className='bg-red-600 p-2 rounded-md'>
+                          <Link to='/sell'>
+                          Sell/Rent Properties
+                          </Link>
+                        </div>
+
       <div className="relative" ref={dropdownRef}>
         <button 
           className="text-white focus:outline-none" 
           onClick={toggleDropdown}
-        >
+          >
           <FaBars className="text-2xl" />
         </button>
         {isDropdownOpen && (
@@ -59,6 +83,7 @@ const Navbar = () => {
             <a href="#" className="block px-4 py-2 hover:bg-Black rounded-lg m-[2%]" onClick={closeDropdown}>List Item 3</a>
           </div>
         )}
+        </div>
       </div>
     </nav>
   );

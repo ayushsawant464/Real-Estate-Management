@@ -3,6 +3,7 @@ import RealEstateCard from '../components/RealEstateCard';
 import House1 from "../assets/House1.jpg";
 import House2 from "../assets/House2.jpg";
 import Filters from '../components/Filters';
+import Navbar from '../components/Navbar';
 
 const data = [
   {
@@ -94,6 +95,7 @@ const BuyPage = () => {
 
   return (
     <>  
+    <Navbar/>
       <div className='w-full flex'>
         <div className='w-[30%] my-16'>
           <Filters categories={categories} onFilterChange={handleFilterChange} />

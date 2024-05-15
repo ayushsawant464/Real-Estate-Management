@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import RealEstateCard from '../components/RealEstateCard';
 import HousePlaceholder from '../assets/House1.jpg'; // Placeholder image for newly added properties
+import Navbar from '../components/Navbar';
 
 const SellPage = () => {
   const [properties, setProperties] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
+  const [isRent,setisRent]=useState(false)
   const [newProperty, setNewProperty] = useState({
     image: HousePlaceholder,
     title: "",
@@ -55,6 +57,8 @@ const SellPage = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4 text-white">Add Property for Selling</h1>
 
@@ -67,6 +71,10 @@ const SellPage = () => {
 
       {formVisible && (
         <form onSubmit={handleSubmit} className="mb-8 bg-gradient-to-l from-black to-black p-4 shadow rounded">
+          <div className='flex text-white font-bold'>
+            <div  onClick={()=>{setisRent(false)}}>Sell</div>
+            <div onClick={()=>{setisRent(true)}}>Rent</div>
+          </div>
           <div className="mb-4">
             <label className="block mb-2 text-white font-bold">Title</label>
             <input
@@ -166,6 +174,7 @@ const SellPage = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

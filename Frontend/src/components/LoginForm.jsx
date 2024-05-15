@@ -29,7 +29,7 @@ const LoginForm = () => {
 
     if(currentUser){
       
-       navigate('/home')};
+       navigate('/buy')};
   })
   return (
     <div>
