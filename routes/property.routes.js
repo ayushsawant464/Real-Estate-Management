@@ -2,7 +2,6 @@ const express = require("express");
 const {  } = require("../utils/verifyUser.js");
 const { createProperty, deleteProperty, updateProperty, getProperty, getProperties } = require("../controllers/property.controller.js");
 
-
 const router = express.Router();
 
 router.get("/", (req, res) => {
