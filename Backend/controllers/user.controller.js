@@ -99,5 +99,53 @@ const getPropertiesR = async (req, res, next) => {
   }
 };
 
-module.exports = { test, updateUser, deleteUser, getUserListings, getUser,createUser, getPropertiesR,getPropertiesS };
+
+const buyProperty = async (req, res, next) => {
+  let user_Id = req.user_id;
+  let status ="sold"
+  const property = await Property.findById(req.params.id);
+  if (!property) {
+    return next(errorHandler(404, 'Property not found!'));
+  }
+  if (req.user_id !== property.user_id) {
+    return next(errorHandler(401, 'You cannot buy  your own listing!'));
+  }
+
+  try {
+    const updatedProperty = await Property.findByIdAndUpdate(
+      user_Id,
+      status,
+      { new: true }
+    );
+    res.status(200).json(updatedProperty);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const rentProperty = async (req, res, next) => {
+  let user_Id = req.user_id;
+  let status ="rented"
+  const property = await Property.findById(req.params.id);
+  if (!property) {
+    return next(errorHandler(404, 'Property not found!'));
+  }
+  if (req.user_id !== property.user_id) {
+    return next(errorHandler(401, 'You cannot rent your own listing!'));
+  }
+
+  try {
+    const updatedProperty = await Property.findByIdAndUpdate(
+      user_Id,
+      status,
+      { new: true }
+    );
+    res.status(200).json(updatedProperty);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+module.exports = { rentProperty,buyProperty,test, updateUser, deleteUser, getUserListings, getUser,createUser, getPropertiesR,getPropertiesS };
 
