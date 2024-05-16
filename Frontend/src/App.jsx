@@ -10,20 +10,21 @@ import PropertyS from './pages/Property/seller'
 import Layout from './pages/Layout'
 import Admin from './pages/Admin'
 import AdminLogin from './pages/AdminLogin'
+import Home from './pages/Home'
 
 
 const App = () => {
   return (
     <BrowserRouter>
-   
     <Routes>
     <Route exact path='/login' element={<Login/>}/>
     <Route path='/' element={<Layout/>}>
+    <Route index element={<Home/>}/>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='buy' element={<Buy/>}/>
     <Route path ='rent' element ={<Rent/>}/>
     <Route path ='sell' element ={<Sell/>}/>
-    <Route path ='property/:id' element ={<Property/>}/>
+    <Route path ='property/:type/:id' element ={<Property/>}/>
     <Route path ='/seller/property/:id' element ={<PropertyS/>}/>
 
     </Route>
@@ -37,4 +38,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

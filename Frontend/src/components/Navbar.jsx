@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaHome } from 'react-icons/fa';
 import {signOut,onAuthStateChanged, signInWithEmailLink} from 'firebase/auth'
 import { firebaseAuth } from '../utils/firebase-config';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -45,7 +45,8 @@ const Navbar = () => {
     <nav className="text-white p-4 flex justify-between items-center mx-4 mt-4">
       <div className='flex items-center justify-center'>
 
-      <div className="text-2xl font-bold">
+      <div className="text-2xl font-bold flex gap-2 items-center">
+        <FaHome/>
           Home
       </div>
       <div className="flex ml-6">
