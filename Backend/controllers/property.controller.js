@@ -34,6 +34,7 @@ const createProperty = async (req, res, next) => {
   }
 };
 
+
  const updateProperty = async (req, res, next) => {
   const property = await Property.findById(req.params.id);
   if (!property) {
@@ -55,6 +56,8 @@ const createProperty = async (req, res, next) => {
   }
 };
 
+
+
  const getProperty = async (req, res, next) => {
   try {
     const property = await Property.findById(req.params.id);
@@ -66,6 +69,7 @@ const createProperty = async (req, res, next) => {
     next(error);
   }
 };
+
 
  const getProperties = async (req, res, next) => {
   try {
