@@ -101,48 +101,56 @@ const getPropertiesR = async (req, res, next) => {
 
 
 const buyProperty = async (req, res, next) => {
-  let user_Id = req.user_id;
-  let status ="sold"
+  const user_id = req.user_id;
+  const status ="Sold Out";
   const property = await Property.findById(req.params.id);
   if (!property) {
-    return next(errorHandler(404, 'Property not found!'));
+    res.status(401).json({error:'Property not found!'});
+
   }
-  if (req.user_id !== property.user_id) {
-    return next(errorHandler(401, 'You cannot buy  your own listing!'));
+  else if (req.user_id == property.user_id) {
+    res.status(402).json({error:'You cannot buy  your own listing!'});
+
   }
+  else {
 
   try {
     const updatedProperty = await Property.findByIdAndUpdate(
-      user_Id,
-      status,
+      req.params.id,
+      {status , user_id},
       { new: true }
     );
     res.status(200).json(updatedProperty);
   } catch (error) {
-    next(error);
+    res.status(403).json({error:error.message})
+    
   }
+}
 };
 
 const rentProperty = async (req, res, next) => {
-  let user_Id = req.user_id;
-  let status ="rented"
+  const user_id = req.user_id;
+  const status ="Sold Out";
   const property = await Property.findById(req.params.id);
   if (!property) {
-    return next(errorHandler(404, 'Property not found!'));
+    res.status(401).json({error:'Property not found!'});
+
   }
-  if (req.user_id !== property.user_id) {
-    return next(errorHandler(401, 'You cannot rent your own listing!'));
+  if (req.user_id == property.user_id) {
+    res.status(402).json({error:'You cannot buy  your own listing!'});
+
   }
 
   try {
     const updatedProperty = await Property.findByIdAndUpdate(
-      user_Id,
-      status,
+      req.params.id,
+      {status},
       { new: true }
     );
     res.status(200).json(updatedProperty);
   } catch (error) {
-    next(error);
+    res.status(403).json({error:error.message})
+    
   }
 };
 

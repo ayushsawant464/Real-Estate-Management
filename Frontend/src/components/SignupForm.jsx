@@ -39,7 +39,7 @@ const SignupForm = () => {
  
     if(currentUser){
       
-       navigate('/buy')};
+       navigate('/')};
   })
 
   return (

@@ -21,9 +21,9 @@ const createProperty = async (req, res, next) => {
     return next(errorHandler(404, 'Property not found!'));
   }
 
-  if (req.user_id !== property.user_id) {
-    return next(errorHandler(401, 'You can only delete your own listing!'));
-  }
+  // if (req.user_id !== property.user_id) {
+  //   return next(errorHandler(401, 'You can only delete your own listing!'));
+  // }
 
   try {
     await Property.findByIdAndDelete(req.params.id);
@@ -40,9 +40,9 @@ const createProperty = async (req, res, next) => {
   if (!property) {
     return next(errorHandler(404, 'Property not found!'));
   }
-  if (req.user_id !== property.user_id) {
-    return next(errorHandler(401, 'You can only update your own listing!'));
-  }
+  // if (req.user_id !== property.user_id) {
+  //   return next(errorHandler(401, 'You can only update your own listing!'));
+  // }
 
   try {
     const updatedProperty = await Property.findByIdAndUpdate(
@@ -69,7 +69,15 @@ const createProperty = async (req, res, next) => {
     next(error);
   }
 };
-
+const getPropertiesA = async (req, res, next) => {
+  try {
+    const properties = await Property.find();
+    res.status(200).json(properties);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({error:error.message})
+  }
+};
 
  const getProperties = async (req, res, next) => {
   try {
@@ -120,4 +128,4 @@ const createProperty = async (req, res, next) => {
 };
 
 
-module.exports = { createProperty, deleteProperty, updateProperty, getProperty, getProperties };
+module.exports = { createProperty, deleteProperty, updateProperty, getProperty, getProperties ,getPropertiesA};

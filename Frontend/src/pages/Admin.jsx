@@ -3,6 +3,7 @@ import { firebaseAuth , db } from '../utils/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import AdminPropertyList from '../components/AdminPropertyList'
 
 const Admin = () => {
     const navigate = useNavigate()
@@ -85,6 +86,11 @@ const Admin = () => {
           ))}
         </tbody>
       </table>
+      <div>
+          <div>Property List</div>
+
+      <AdminPropertyList/>
+      </div>
     </div>
   );
 

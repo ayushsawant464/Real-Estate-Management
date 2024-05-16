@@ -7,6 +7,7 @@ import Sell from './pages/SellPage'
 import Profile from './pages/ProfilePage'
 import Property from './pages/Property/Id'
 import PropertyS from './pages/Property/seller'
+import PropertyA from './pages/Property/admin'
 import Layout from './pages/Layout'
 import Admin from './pages/Admin'
 import AdminLogin from './pages/AdminLogin'
@@ -30,7 +31,9 @@ const App = () => {
     </Route>
     <Route path='/admin'>
       <Route index element={<Admin/>}/>
+      
       <Route path='login' element={<AdminLogin/>}/>
+      <Route path='property/:id' element={<PropertyA/>}/>
     </Route>
     </Routes>
    
