@@ -46,7 +46,8 @@ const SellPage = () => {
         size: ""
       });
       setFormVisible(false);
-      setRefresh((prevRefresh) => !prevRefresh); 
+      // setRefresh((prevRefresh) => !prevRefresh); 
+      window.location.reload(true);
     } catch (error) {
       console.error('Error adding property:', error);
     }

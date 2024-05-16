@@ -2,10 +2,10 @@
   import House1 from '../../assets/House1.jpg';
   import { useParams } from 'react-router-dom';
   import axiosInstance from '../../utils/axiosInstance';
-
+  import { Link } from 'react-router-dom';
   const PropertyDetail = () => {
     const [data, setData] = useState(null);
-    const {id} = useParams()
+    const {type, id} = useParams()
     const fetchData = async()=>{
         try {
             const response = await axiosInstance.get(`/property/get/${id}`);
@@ -14,8 +14,14 @@
           } catch (error) {
             console.error('Error fetching todos:', error);
           }
-
-
+    }
+    const handleSubmit = async() => {
+      try {
+        const response = await axiosInstance.get(`/user/buyProperty/${id}`);
+        
+      } catch (error) {
+        console.error('Error buying property: ', error);
+      }
     }
     useEffect(()=>{fetchData()},[])
     return (
@@ -45,6 +51,22 @@
               <p className="text-lg font-semibold w-1/3">Size:</p>
               <p className="text-lg font-semibold w-2/3">{data.size}</p>
             </div>
+              {data.status === "Available" && <div className='bg-Red p-2 px-4 rounded-md text-white mx-auto mt-4 w-auto'>
+                      {data.isRent === true && <Link to='/rent' onSubmit={handleSubmit}>
+                          Rent
+                      </Link>}
+                      {data.isRent === false && <Link to='/buy' onSubmit={handleSubmit}>
+                          Buy
+                      </Link>}
+              </div>}
+              {data.status === "Sold Out" && <div className='bg-gray-700 p-2 px-4 rounded-md text-slate-400 mx-auto mt-4 w-auto'>
+                      {data.isRent === true && <button disabled>
+                          Rent
+                      </button>}
+                      {data.isRent === false && <button disabled>
+                          Buy
+                      </button>}
+              </div>}
           </div>
         </div>
       </div>

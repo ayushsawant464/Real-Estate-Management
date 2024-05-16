@@ -4,14 +4,17 @@ const RealEstateCard = ({ realEstate ,isSeller }) => {
     const navigate = useNavigate();
 
     return(
-    <div className="bg-gradient-to-r mx-4 my-4 from-black to-Black w-96 shadow-2xl rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r mx-4 my-4 from-black to-Black w-96 shadow-2xl rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
+    {realEstate.status === "Sold out" && <div className="bg-Black/20 mx-4 my-4 shadow-2xl rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
+      </div>}
+
       <div className="p-6">
         <div className="w-auto h-64 rounded-lg overflow-hidden border-2 border-Red relative cursor-pointer">
           <img
             src={realEstate.imageUrl}
             alt={realEstate.title}
             className="w-full h-full object-cover absolute inset-0"
-          />
+            />
           <div className="absolute inset-0 bg-gradient-to-t from-transparent to-Black opacity-0 hover:opacity-50 transition-opacity duration-300"></div>
         </div>
         <div className="flex items-center mt-4">
@@ -29,7 +32,7 @@ const RealEstateCard = ({ realEstate ,isSeller }) => {
           <p className="text-xl font-semibold text-white">Price: <span className="text-Red">${realEstate.price}</span></p>
           <button className="bg-Red text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105"
           onClick={()=>{
-            isSeller?navigate(`/seller/property/${realEstate._id}`):navigate(`/property/${realEstate._id}`)}}>
+            isSeller?navigate(`/seller/property/${realEstate._id}`):navigate(`/property/${realEstate.isRent === true ? "rent" : "buy"}/${realEstate._id}`)}}>
             View Details
           </button>
         </div>
