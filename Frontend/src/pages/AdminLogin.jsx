@@ -1,42 +1,50 @@
 // AdminLoginPage.jsx
-import React, { useState } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { firebaseAuth, db } from '../utils/firebase-config';
-import { collection, doc } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-
-
+import Cookies from 'js-cookie'
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const navigate = useNavigate()
+  const [redirect,setRedirect] = useState(false)
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const { email, password } = form;
       const userCredential = await signInWithEmailAndPassword(firebaseAuth, email, password);
-      const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
-      const userData = userDoc.data();
-      
+      const uid = userCredential.user.uid;
+      const q = query(collection(db, 'users'), where('uid', '==', uid));
+      const querySnapshot = await getDocs(q);
+      const userData = querySnapshot.docs[0].data()
+      console.log("User Data:", userData); 
+   
+
       if (userData && userData.isAdmin) {
+        console.log("admin");
         const token = await userCredential.user.getIdToken();
         Cookies.set('jwtToken', token, { expires: 7, secure: true, sameSite: 'strict' });
-        navigate('/admin');
+        setRedirect(true)
       } else {
+        console.log("not an admin");
         setError('User is not an admin');
+        signOut(firebaseAuth)
       }
     } catch (error) {
-      console.log(error.code);
+      console.log(error);
       setError(error.code);
     }
-}
-onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) {
-      // Redirect to admin dashboard if user is already logged in
-      navigate('/admin/dashboard');
+  };
+
+  useEffect(()=>{
+    if(redirect){
+        navigate('/admin')
     }
-  });
+    console.log(redirect)
+
+  },[redirect])
 
   return (
     <div className="flex justify-center items-center h-screen">

@@ -1,6 +1,6 @@
 import React ,{useState} from 'react'
 import {createUserWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth'
-import {firebaseAuth ,} from "../utils/firebase-config"
+import {firebaseAuth ,db} from "../utils/firebase-config"
 import {useNavigate} from 'react-router-dom'
 import { MdOutlineEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
@@ -20,13 +20,14 @@ const SignupForm = () => {
     try {
       const{email,password} = form
       const userCredential = await createUserWithEmailAndPassword(firebaseAuth,email,password)
+      const token = await userCredential.user.getIdToken();
+      Cookies.set('jwtToken', token, { expires: 7, secure: true, sameSite: 'strict' });
       await addDoc(collection(db, "users"), {
         uid: userCredential.user.uid,
         email: email,
         isAdmin: false,
       });
-      const token = await userCredential.user.getIdToken();
-      Cookies.set('jwtToken', token, { expires: 7, secure: true, sameSite: 'strict' });
+
     } catch (error) {
       console.log(error.code)
       seterror(error.code)
