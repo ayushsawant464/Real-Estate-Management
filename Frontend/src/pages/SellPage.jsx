@@ -7,7 +7,6 @@ const SellPage = () => {
   const [isRent,setisRent]=useState(false)
   const [refresh,setRefresh]= useState(false)
   const [newProperty, setNewProperty] = useState({
-    name:"",
     imageUrl: "",
     title: "",
     location: "",
@@ -47,7 +46,7 @@ const SellPage = () => {
         size: ""
       });
       setFormVisible(false);
-      setRefresh(true);
+      setRefresh((prevRefresh) => !prevRefresh); 
     } catch (error) {
       console.error('Error adding property:', error);
     }

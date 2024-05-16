@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const RealEstateCard = ({ realEstate }) => {
+const RealEstateCard = ({ realEstate ,isSeller }) => {
     const navigate = useNavigate();
 
     return(
@@ -28,7 +28,8 @@ const RealEstateCard = ({ realEstate }) => {
         <div className="flex justify-between items-center mt-2">
           <p className="text-xl font-semibold text-white">Price: <span className="text-Red">${realEstate.price}</span></p>
           <button className="bg-Red text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105"
-          onClick={()=>{navigate(`/property/${realEstate._id}`)}}>
+          onClick={()=>{
+            isSeller?navigate(`/seller/property/${realEstate._id}`):navigate(`/property/${realEstate._id}`)}}>
             View Details
           </button>
         </div>

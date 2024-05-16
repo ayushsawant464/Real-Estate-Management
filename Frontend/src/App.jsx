@@ -6,6 +6,7 @@ import Rent from './pages/RentPage'
 import Sell from './pages/SellPage'
 import Profile from './pages/ProfilePage'
 import Property from './pages/Property/Id'
+import PropertyS from './pages/Property/seller'
 import Layout from './pages/Layout'
 
 
@@ -21,6 +22,7 @@ const App = () => {
     <Route path ='rent' element ={<Rent/>}/>
     <Route path ='sell' element ={<Sell/>}/>
     <Route path ='property/:id' element ={<Property/>}/>
+    <Route path ='/seller/property/:id' element ={<PropertyS/>}/>
 
     </Route>
     </Routes>

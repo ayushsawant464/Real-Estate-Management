@@ -20,7 +20,7 @@ const PropertyList = () => {
     <div className="p-4">
     <div className="flex flex-wrap">
       {properties && properties.map((property, index) => (
-        <RealEstateCard key={index} realEstate={property} />
+        <RealEstateCard key={index} realEstate={property} isSeller={true}/>
       ))}
     </div>
   </div>

@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.use(verifyToken)
 router.post("/create", createProperty); //used
-router.delete("/delete/:id", deleteProperty);
-router.post("/update/:id" , updateProperty);
+router.delete("/delete/:id", deleteProperty); //used
+router.post("/update/:id" , updateProperty); //used
 router.get("/get/:id", getProperty); //used
 router.get("/get", getProperties);
 

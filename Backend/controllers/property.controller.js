@@ -21,15 +21,16 @@ const createProperty = async (req, res, next) => {
     return next(errorHandler(404, 'Property not found!'));
   }
 
-  if (req.user.id !== property.userRef) {
+  if (req.user_id !== property.user_id) {
     return next(errorHandler(401, 'You can only delete your own listing!'));
   }
 
   try {
-    await property.findByIdAndDelete(req.params.id);
+    await Property.findByIdAndDelete(req.params.id);
     res.status(200).json('Property has been deleted!');
   } catch (error) {
-    next(error);
+    res.status(400).json({error:error.message})
+    console.log(error)
   }
 };
 
@@ -38,7 +39,7 @@ const createProperty = async (req, res, next) => {
   if (!property) {
     return next(errorHandler(404, 'Property not found!'));
   }
-  if (req.user.id !== property.userRef) {
+  if (req.user_id !== property.user_id) {
     return next(errorHandler(401, 'You can only update your own listing!'));
   }
 
