@@ -3,6 +3,10 @@ import House1 from '../../assets/House1.jpg';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import { Link } from 'react-router-dom';
+import {loadStripe} from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from '../../components/CheckoutForm';
+const stripePromise=loadStripe("pk_test_51PHKTHSI2nJpaMLDrNvZ0u2HGAwXWrT7NizcUopx8IuzLC4CuVkprMPPWjBriYghGGRW1EjGnrw5SYPAgON7xpBR00LPQXQ1Vt");
 
 const PropertyDetail = () => {
   const [data, setData] = useState(null);
@@ -86,6 +90,10 @@ const PropertyDetail = () => {
               <div className="bg-gray-700 p-2 px-4 rounded-md text-slate-400 mx-auto mt-4 w-auto cursor-not-allowed">
                 <button disabled>{data.isRent ? 'Rent' : 'Buy'}</button>
               </div>
+            )}{clientSecret && (
+              <Elements options={options} stripe={stripePromise}>
+                <CheckoutForm />
+              </Elements>
             )}
           </div>
         </div>

@@ -13,6 +13,7 @@ dotenv.config();
 
 // Middleware configuration
 app.use(express.json());
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
   origin: 'http://localhost:5173',

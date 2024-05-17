@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user.model.js");
 const errorHandler = require("../utils/error.js");
 const Property = require("../models/property.model.js");
+const stripe = require("stripe")('sk_test_51PHKTHSI2nJpaMLDgxQtoKcH7zMCeAN8Z2hxV1Nzy3k01oAwYoWVlsr9yZ6oKk5xGa2onz22D8OKfjYURWeDYRwb0056umNa4q');
 
  const test = (req, res) => {
   res.send("Test route being called!!!");
@@ -102,6 +103,7 @@ const getPropertiesR = async (req, res, next) => {
 
 const buyProperty = async (req, res, next) => {
   const user_id = req.user_id;
+  const price =req.body.price;
   const status ="Sold Out";
   const property = await Property.findById(req.params.id);
   if (!property) {
@@ -120,7 +122,21 @@ const buyProperty = async (req, res, next) => {
       {status , user_id},
       { new: true }
     );
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: price * 100,
+      currency: "inr",
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+    
     res.status(200).json(updatedProperty);
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  
+
+
   } catch (error) {
     res.status(403).json({error:error.message})
     
