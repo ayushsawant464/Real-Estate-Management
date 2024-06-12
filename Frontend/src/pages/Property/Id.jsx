@@ -90,11 +90,12 @@ const PropertyDetail = () => {
               <div className="bg-gray-700 p-2 px-4 rounded-md text-slate-400 mx-auto mt-4 w-auto cursor-not-allowed">
                 <button disabled>{data.isRent ? 'Rent' : 'Buy'}</button>
               </div>
-            )}{clientSecret && (
-              <Elements options={options} stripe={stripePromise}>
-                <CheckoutForm />
-              </Elements>
             )}
+             {/* {clientSecret && ( */}
+            {/* //   <Elements options={options} stripe={stripePromise}>
+            //     <CheckoutForm />
+            //   </Elements>
+            // )} */}
           </div>
         </div>
       </div>

@@ -122,13 +122,13 @@ const buyProperty = async (req, res, next) => {
       {status , user_id},
       { new: true }
     );
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: price * 100,
-      currency: "inr",
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    });
+    // const paymentIntent = await stripe.paymentIntents.create({
+    //   amount: price * 100,
+    //   currency: "inr",
+    //   automatic_payment_methods: {
+    //     enabled: true,
+    //   },
+    // });
     
     res.status(200).json(updatedProperty);
     res.send({
